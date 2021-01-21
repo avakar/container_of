@@ -53,7 +53,7 @@ If you're using CMake, use the FetchContent module.
 ```cmake
 FetchContent_Declare(
     avakar.container_of
-    GIT_REPOSITORY https://github.com/avakar/small_function.git
+    GIT_REPOSITORY https://github.com/avakar/container_of.git
     GIT_TAG main
     GIT_SHALLOW 1
     )
