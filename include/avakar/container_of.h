@@ -77,6 +77,12 @@ auto container_of(T * p, T C::* mp) noexcept
 
 #endif
 
+template <typename C, typename T>
+C const * container_of(T const * p, T C::* mp) noexcept
+{
+	return container_of(const_cast<T *>(p), mp);
+}
+
 }
 
 using _container_of::container_of;

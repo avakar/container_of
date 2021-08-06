@@ -1,4 +1,5 @@
 #include <avakar/container_of.h>
+#include <type_traits>
 
 #include <stdexcept>
 #ifndef PP_STRINGIFY
@@ -25,6 +26,17 @@ static void test_simple()
 	A a;
 	require(container_of(&a.a1, &A::a1) == &a);
 	require(container_of(&a.a2, &A::a2) == &a);
+
+	require((std::is_same<decltype(container_of(&a.a1, &A::a1)), A *>::value));
+}
+
+static void test_const()
+{
+	A const a = {};
+	require(container_of(&a.a1, &A::a1) == &a);
+	require(container_of(&a.a2, &A::a2) == &a);
+
+	require((std::is_same<decltype(container_of(&a.a1, &A::a1)), A const *>::value));
 }
 
 struct B
@@ -78,6 +90,7 @@ int main()
 		test_simple();
 		test_inherit();
 		test_virtual_inherit();
+		test_const();
 	}
 	catch (assertion_failed const & e)
 	{
